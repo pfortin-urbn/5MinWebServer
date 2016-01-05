@@ -19,6 +19,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
+	router.PathPrefix("/static").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("static/"))))
 	router.HandleFunc("/", handler)
 
 	http.ListenAndServe(":9999", router)
