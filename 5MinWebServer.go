@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"html/template"
 
@@ -22,5 +23,8 @@ func main() {
 	router.PathPrefix("/static").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("static/"))))
 	router.HandleFunc("/", handler)
 
-	http.ListenAndServe(":9999", router)
+	err := http.ListenAndServeTLS(":9999", "cert.pem", "key.pem", router)
+	if err != nil {
+		log.Printf("Web Server cannot start: %v\n", err)
+	}
 }
