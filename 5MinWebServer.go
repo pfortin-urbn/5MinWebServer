@@ -19,7 +19,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
-
 	router.HandleFunc("/", handler)
+
 	http.ListenAndServe(":9999", router)
 }
